@@ -1,0 +1,47 @@
+{
+  "sequential": {
+    "method": "sequential",
+    "elapsed": 0.024761061000049267,
+    "initial_count": 200,
+    "final_count": 200,
+    "integrity_ok": true,
+    "discrepancy": 0,
+    "extra": {}
+  },
+  "naive": {
+    "method": "naive_threaded (1 thread / particle, NO sync)",
+    "elapsed": 6.580365697999923,
+    "initial_count": 200,
+    "final_count": 1406,
+    "integrity_ok": false,
+    "discrepancy": 1206,
+    "extra": {
+      "n_threads": 200
+    }
+  },
+  "solved": {
+    "method": "solved_threaded (per-cell locks + ordering)",
+    "elapsed": 5.167936509000015,
+    "initial_count": 200,
+    "final_count": 200,
+    "integrity_ok": true,
+    "discrepancy": 0,
+    "extra": {
+      "n_threads": 200,
+      "n_locks": 400
+    }
+  },
+  "deadlock": {
+    "method": "deadlock_threaded (no resource ordering)",
+    "elapsed": 25.445882779000044,
+    "initial_count": 200,
+    "final_count": 200,
+    "integrity_ok": true,
+    "discrepancy": 0,
+    "extra": {
+      "deadlocked": true,
+      "n_threads": 200,
+      "completed_steps": 1
+    }
+  }
+}

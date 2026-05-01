@@ -1,0 +1,22 @@
+{
+  "pool_W1": {
+    "elapsed": 0.06518289199999572,
+    "n_workers": 1,
+    "integrity_ok": true
+  },
+  "pool_W2": {
+    "elapsed": 0.07328867200000388,
+    "n_workers": 2,
+    "integrity_ok": true
+  },
+  "pool_W4": {
+    "elapsed": 0.09123521099999721,
+    "n_workers": 4,
+    "integrity_ok": true
+  },
+  "pool_W8": {
+    "elapsed": 0.12117536000000939,
+    "n_workers": 8,
+    "integrity_ok": true
+  }
+}

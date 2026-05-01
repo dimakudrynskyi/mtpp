@@ -1,0 +1,32 @@
+{
+  "sequential": {
+    "elapsed": 0.012427384999966762,
+    "method": "Sequential",
+    "n_threads": 0
+  },
+  "solved_per_particle": {
+    "elapsed": 1.666869437999992,
+    "method": "1 thread per particle",
+    "n_threads": 200
+  },
+  "pool_W1": {
+    "elapsed": 0.026592343000004348,
+    "method": "Worker Pool W=1",
+    "n_threads": 1
+  },
+  "pool_W2": {
+    "elapsed": 0.031755277000002025,
+    "method": "Worker Pool W=2",
+    "n_threads": 2
+  },
+  "pool_W4": {
+    "elapsed": 0.07615364899999122,
+    "method": "Worker Pool W=4",
+    "n_threads": 4
+  },
+  "pool_W8": {
+    "elapsed": 0.0958744769999953,
+    "method": "Worker Pool W=8",
+    "n_threads": 8
+  }
+}
