@@ -1,0 +1,66 @@
+{
+  "task": "matrix_mult",
+  "size": [
+    1024,
+    1024
+  ],
+  "sequential": {
+    "time": 0.6403975129999822
+  },
+  "patterns": {
+    "map_reduce": {
+      "1": {
+        "time": 0.6483677600000419,
+        "correct": true
+      },
+      "2": {
+        "time": 0.37629548799998247,
+        "correct": true
+      },
+      "4": {
+        "time": 0.2161327480000068,
+        "correct": true
+      },
+      "8": {
+        "time": 0.1268634200000065,
+        "correct": true
+      }
+    },
+    "fork_join": {
+      "1": {
+        "time": 0.6651258510000275,
+        "correct": true
+      },
+      "2": {
+        "time": 0.34267581300002803,
+        "correct": true
+      },
+      "4": {
+        "time": 0.19518240100001094,
+        "correct": true
+      },
+      "8": {
+        "time": 0.14167351999998345,
+        "correct": true
+      }
+    },
+    "worker_pool": {
+      "1": {
+        "time": 0.6697067179999863,
+        "correct": true
+      },
+      "2": {
+        "time": 0.40574683400001277,
+        "correct": true
+      },
+      "4": {
+        "time": 0.21024967699997887,
+        "correct": true
+      },
+      "8": {
+        "time": 0.12438010500000019,
+        "correct": true
+      }
+    }
+  }
+}
