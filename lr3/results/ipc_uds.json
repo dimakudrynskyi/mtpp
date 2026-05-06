@@ -1,0 +1,10 @@
+{
+  "method": "Unix Domain Socket + JSON",
+  "language_pair": "Python↔Python",
+  "environment": "single host (cross-language capable)",
+  "n_messages": 1000,
+  "total_time_s": 1.6082409599999892,
+  "avg_rtt_us": 1577.3137259994883,
+  "p50_rtt_us": 754.0010000184338,
+  "p99_rtt_us": 50732.043000039084
+}

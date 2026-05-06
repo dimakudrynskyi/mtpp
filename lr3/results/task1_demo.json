@@ -1,0 +1,52 @@
+[
+  {
+    "name": "naive_race (без синхронізації)",
+    "initial_total": 745022.0,
+    "final_total": 737573.0,
+    "discrepancy": -7449.0,
+    "successful": 50773,
+    "attempts": 51200,
+    "time": 8.470294992999925,
+    "deadlock": false
+  },
+  {
+    "name": "naive_deadlock (два замки)",
+    "initial_total": 745022.0,
+    "final_total": 745022.0,
+    "discrepancy": 0.0,
+    "successful": 1509,
+    "attempts": 20480,
+    "time": -1.0,
+    "deadlock": true
+  },
+  {
+    "name": "ordered_locks (рішення deadlock)",
+    "initial_total": 745022.0,
+    "final_total": 745022.0,
+    "discrepancy": 0.0,
+    "successful": 50743,
+    "attempts": 51200,
+    "time": 1.2151248960000203,
+    "deadlock": false
+  },
+  {
+    "name": "global_lock (повна серіалізація)",
+    "initial_total": 745022.0,
+    "final_total": 745022.0,
+    "discrepancy": 0.0,
+    "successful": 50743,
+    "attempts": 51200,
+    "time": 1.189583760000005,
+    "deadlock": false
+  },
+  {
+    "name": "try_lock (оптимістичний)",
+    "initial_total": 745022.0,
+    "final_total": 745022.0,
+    "discrepancy": 0.0,
+    "successful": 50743,
+    "attempts": 51200,
+    "time": 1.2047753660000353,
+    "deadlock": false
+  }
+]

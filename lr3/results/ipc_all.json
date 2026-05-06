@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "timestamp": "2026-04-29 18:16:50",
+    "n_messages": 1000,
+    "note": "Виміри RTT (round-trip time) для одного повідомлення (float64 туди-назад)"
+  },
+  "methods": [
+    {
+      "method": "multiprocessing.Pipe",
+      "language_pair": "Python↔Python",
+      "environment": "single (subprocess)",
+      "n_messages": 1000,
+      "total_time_s": 0.2603877440000133,
+      "avg_rtt_us": 259.3282839993094,
+      "p50_rtt_us": 102.07500002934466,
+      "p99_rtt_us": 282.190999996601,
+      "logged": 1000
+    },
+    {
+      "method": "shared_memory + Event",
+      "language_pair": "Python↔Python",
+      "environment": "single (subprocess)",
+      "n_messages": 1000,
+      "total_time_s": 0.31637093000000505,
+      "avg_rtt_us": 315.5598630000327,
+      "p50_rtt_us": 94.533999970281,
+      "p99_rtt_us": 311.5020000450386
+    },
+    {
+      "method": "Unix Domain Socket + JSON",
+      "language_pair": "Python↔Python",
+      "environment": "single host (cross-language capable)",
+      "n_messages": 1000,
+      "total_time_s": 1.6082409599999892,
+      "avg_rtt_us": 1577.3137259994883,
+      "p50_rtt_us": 754.0010000184338,
+      "p99_rtt_us": 50732.043000039084
+    },
+    {
+      "method": "TCP socket + JSON",
+      "language_pair": "Python↔Node.js",
+      "environment": "dual (different runtime, same host)",
+      "n_messages": 1000,
+      "total_time_s": 1.9723105669999654,
+      "avg_rtt_us": 1946.2371679996977,
+      "p50_rtt_us": 926.3289999807967,
+      "p99_rtt_us": 51925.16800002522,
+      "node_logged_lines": 1001
+    }
+  ]
+}

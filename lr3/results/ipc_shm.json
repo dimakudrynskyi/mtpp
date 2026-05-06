@@ -1,0 +1,10 @@
+{
+  "method": "shared_memory + Event",
+  "language_pair": "Python↔Python",
+  "environment": "single (subprocess)",
+  "n_messages": 1000,
+  "total_time_s": 0.31637093000000505,
+  "avg_rtt_us": 315.5598630000327,
+  "p50_rtt_us": 94.533999970281,
+  "p99_rtt_us": 311.5020000450386
+}

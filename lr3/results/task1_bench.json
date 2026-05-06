@@ -1,0 +1,188 @@
+{
+  "thread_counts": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    64,
+    256,
+    1024
+  ],
+  "solutions": {
+    "ordered_locks": {
+      "1": {
+        "time": 0.0019306350000078965,
+        "successful": 49,
+        "attempts": 50,
+        "throughput": 25380.250539226516,
+        "integrity_ok": true
+      },
+      "2": {
+        "time": 0.0015812149999874237,
+        "successful": 99,
+        "attempts": 100,
+        "throughput": 62610.08148846767,
+        "integrity_ok": true
+      },
+      "4": {
+        "time": 0.0026962779999735176,
+        "successful": 198,
+        "attempts": 200,
+        "throughput": 73434.56424075883,
+        "integrity_ok": true
+      },
+      "8": {
+        "time": 0.004772292999973615,
+        "successful": 396,
+        "attempts": 400,
+        "throughput": 82978.97886868835,
+        "integrity_ok": true
+      },
+      "16": {
+        "time": 0.010438127999975677,
+        "successful": 795,
+        "attempts": 800,
+        "throughput": 76163.08211605113,
+        "integrity_ok": true
+      },
+      "64": {
+        "time": 0.08104990399999679,
+        "successful": 3181,
+        "attempts": 3200,
+        "throughput": 39247.42464840089,
+        "integrity_ok": true
+      },
+      "256": {
+        "time": 0.28035121599998547,
+        "successful": 12699,
+        "attempts": 12800,
+        "throughput": 45296.753769031835,
+        "integrity_ok": true
+      },
+      "1024": {
+        "time": 1.0370571869999594,
+        "successful": 50743,
+        "attempts": 51200,
+        "throughput": 48929.799278274506,
+        "integrity_ok": true
+      }
+    },
+    "global_lock": {
+      "1": {
+        "time": 0.0005696640000110165,
+        "successful": 49,
+        "attempts": 50,
+        "throughput": 86015.61622123289,
+        "integrity_ok": true
+      },
+      "2": {
+        "time": 0.06891330399997742,
+        "successful": 99,
+        "attempts": 100,
+        "throughput": 1436.5876290016865,
+        "integrity_ok": true
+      },
+      "4": {
+        "time": 0.0019388419999586404,
+        "successful": 198,
+        "attempts": 200,
+        "throughput": 102122.81351663712,
+        "integrity_ok": true
+      },
+      "8": {
+        "time": 0.00425981299997602,
+        "successful": 396,
+        "attempts": 400,
+        "throughput": 92961.82719810217,
+        "integrity_ok": true
+      },
+      "16": {
+        "time": 0.007208456999990176,
+        "successful": 795,
+        "attempts": 800,
+        "throughput": 110287.12524762005,
+        "integrity_ok": true
+      },
+      "64": {
+        "time": 0.07571437799998648,
+        "successful": 3181,
+        "attempts": 3200,
+        "throughput": 42013.15633868864,
+        "integrity_ok": true
+      },
+      "256": {
+        "time": 0.28587274000000207,
+        "successful": 12699,
+        "attempts": 12800,
+        "throughput": 44421.86407840044,
+        "integrity_ok": true
+      },
+      "1024": {
+        "time": 1.0869217910000089,
+        "successful": 50743,
+        "attempts": 51200,
+        "throughput": 46685.051693843154,
+        "integrity_ok": true
+      }
+    },
+    "try_lock": {
+      "1": {
+        "time": 0.011921253000025445,
+        "successful": 49,
+        "attempts": 50,
+        "throughput": 4110.3061901207375,
+        "integrity_ok": true
+      },
+      "2": {
+        "time": 0.0013257049999992887,
+        "successful": 99,
+        "attempts": 100,
+        "throughput": 74677.2472005862,
+        "integrity_ok": true
+      },
+      "4": {
+        "time": 0.002622620000011011,
+        "successful": 198,
+        "attempts": 200,
+        "throughput": 75497.02206159059,
+        "integrity_ok": true
+      },
+      "8": {
+        "time": 0.0055319319999966865,
+        "successful": 396,
+        "attempts": 400,
+        "throughput": 71584.39402368598,
+        "integrity_ok": true
+      },
+      "16": {
+        "time": 0.010743817999980365,
+        "successful": 795,
+        "attempts": 800,
+        "throughput": 73996.0412584663,
+        "integrity_ok": true
+      },
+      "64": {
+        "time": 0.07519414899996946,
+        "successful": 3181,
+        "attempts": 3200,
+        "throughput": 42303.823399893685,
+        "integrity_ok": true
+      },
+      "256": {
+        "time": 0.31161933499998895,
+        "successful": 12699,
+        "attempts": 12800,
+        "throughput": 40751.6433471641,
+        "integrity_ok": true
+      },
+      "1024": {
+        "time": 1.1749640019999674,
+        "successful": 50743,
+        "attempts": 51200,
+        "throughput": 43186.85501311334,
+        "integrity_ok": true
+      }
+    }
+  }
+}

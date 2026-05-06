@@ -1,0 +1,11 @@
+{
+  "method": "TCP socket + JSON",
+  "language_pair": "Python↔Node.js",
+  "environment": "dual (different runtime, same host)",
+  "n_messages": 1000,
+  "total_time_s": 1.9723105669999654,
+  "avg_rtt_us": 1946.2371679996977,
+  "p50_rtt_us": 926.3289999807967,
+  "p99_rtt_us": 51925.16800002522,
+  "node_logged_lines": 1001
+}

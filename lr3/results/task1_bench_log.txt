@@ -1,0 +1,32 @@
+
+=== ordered_locks ===
+  threads=    1  t=  0.00s  ok=    49/50  thr=   25380/s  integrity=✓
+  threads=    2  t=  0.00s  ok=    99/100  thr=   62610/s  integrity=✓
+  threads=    4  t=  0.00s  ok=   198/200  thr=   73435/s  integrity=✓
+  threads=    8  t=  0.00s  ok=   396/400  thr=   82979/s  integrity=✓
+  threads=   16  t=  0.01s  ok=   795/800  thr=   76163/s  integrity=✓
+  threads=   64  t=  0.08s  ok=  3181/3200  thr=   39247/s  integrity=✓
+  threads=  256  t=  0.28s  ok= 12699/12800  thr=   45297/s  integrity=✓
+  threads= 1024  t=  1.04s  ok= 50743/51200  thr=   48930/s  integrity=✓
+
+=== global_lock ===
+  threads=    1  t=  0.00s  ok=    49/50  thr=   86016/s  integrity=✓
+  threads=    2  t=  0.07s  ok=    99/100  thr=    1437/s  integrity=✓
+  threads=    4  t=  0.00s  ok=   198/200  thr=  102123/s  integrity=✓
+  threads=    8  t=  0.00s  ok=   396/400  thr=   92962/s  integrity=✓
+  threads=   16  t=  0.01s  ok=   795/800  thr=  110287/s  integrity=✓
+  threads=   64  t=  0.08s  ok=  3181/3200  thr=   42013/s  integrity=✓
+  threads=  256  t=  0.29s  ok= 12699/12800  thr=   44422/s  integrity=✓
+  threads= 1024  t=  1.09s  ok= 50743/51200  thr=   46685/s  integrity=✓
+
+=== try_lock ===
+  threads=    1  t=  0.01s  ok=    49/50  thr=    4110/s  integrity=✓
+  threads=    2  t=  0.00s  ok=    99/100  thr=   74677/s  integrity=✓
+  threads=    4  t=  0.00s  ok=   198/200  thr=   75497/s  integrity=✓
+  threads=    8  t=  0.01s  ok=   396/400  thr=   71584/s  integrity=✓
+  threads=   16  t=  0.01s  ok=   795/800  thr=   73996/s  integrity=✓
+  threads=   64  t=  0.08s  ok=  3181/3200  thr=   42304/s  integrity=✓
+  threads=  256  t=  0.31s  ok= 12699/12800  thr=   40752/s  integrity=✓
+  threads= 1024  t=  1.17s  ok= 50743/51200  thr=   43187/s  integrity=✓
+
+✓ Saved: results/task1_bench.json

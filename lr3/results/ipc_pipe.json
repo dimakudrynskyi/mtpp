@@ -1,0 +1,11 @@
+{
+  "method": "multiprocessing.Pipe",
+  "language_pair": "Python↔Python",
+  "environment": "single (subprocess)",
+  "n_messages": 1000,
+  "total_time_s": 0.2603877440000133,
+  "avg_rtt_us": 259.3282839993094,
+  "p50_rtt_us": 102.07500002934466,
+  "p99_rtt_us": 282.190999996601,
+  "logged": 1000
+}
