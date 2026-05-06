@@ -1,0 +1,92 @@
+{
+  "metadata": {
+    "timestamp": "2026-04-27 16:00:00",
+    "worker_counts": [1, 2, 4, 8],
+    "cpu_count": 2,
+    "io_latency_ms": 5,
+    "python_version": "3.12.3",
+    "notes": "I/O bench виконано з симульованою затримкою 5 мс/файл (tmpfs у контейнері занадто швидкий)"
+  },
+  "results": [
+    {
+      "task": "pi_montecarlo",
+      "N": 5000000,
+      "sequential": {"value": 3.14248, "time": 5.599},
+      "threads": {
+        "1": {"value": 3.14248, "time": 5.810},
+        "2": {"value": 3.14153, "time": 6.182},
+        "4": {"value": 3.14085, "time": 5.218},
+        "8": {"value": 3.14050, "time": 4.704}
+      },
+      "processes": {
+        "1": {"value": 3.14248, "time": 4.910},
+        "2": {"value": 3.14153, "time": 3.192},
+        "4": {"value": 3.14085, "time": 2.704},
+        "8": {"value": 3.14050, "time": 2.594}
+      }
+    },
+    {
+      "task": "factorization",
+      "N": 16,
+      "sequential": {"time": 7.990},
+      "threads": {
+        "1": {"time": 5.309},
+        "2": {"time": 5.694},
+        "4": {"time": 6.607},
+        "8": {"time": 6.082}
+      },
+      "processes": {
+        "1": {"time": 6.402},
+        "2": {"time": 5.302},
+        "4": {"time": 4.011},
+        "8": {"time": 4.283}
+      }
+    },
+    {
+      "task": "primes",
+      "lo": 1, "hi": 500000,
+      "sequential": {"value": 41538, "time": 2.101},
+      "threads": {
+        "1": {"value": 41538, "time": 2.024},
+        "2": {"value": 41538, "time": 2.394},
+        "4": {"value": 41538, "time": 1.798},
+        "8": {"value": 41538, "time": 1.728}
+      },
+      "processes": {
+        "1": {"value": 41538, "time": 0.897},
+        "2": {"value": 41538, "time": 0.928},
+        "4": {"value": 41538, "time": 0.987},
+        "8": {"value": 41538, "time": 1.244}
+      }
+    },
+    {
+      "task": "transpose",
+      "size": 10000,
+      "sequential": {"time": 4.167},
+      "threads": {
+        "1": {"time": 4.564},
+        "2": {"time": 4.107},
+        "4": {"time": 2.909},
+        "8": {"time": 1.893}
+      },
+      "processes": {}
+    },
+    {
+      "task": "io_wordcount",
+      "root": "test_data",
+      "sequential": {"value": 277637, "time": 5.688},
+      "threads": {
+        "1": {"value": 277637, "time": 5.848},
+        "2": {"value": 277637, "time": 2.944},
+        "4": {"value": 277637, "time": 1.640},
+        "8": {"value": 277637, "time": 0.898}
+      },
+      "processes": {
+        "1": {"value": 277637, "time": 5.871},
+        "2": {"value": 277637, "time": 3.002},
+        "4": {"value": 277637, "time": 1.698},
+        "8": {"value": 277637, "time": 1.179}
+      }
+    }
+  ]
+}
