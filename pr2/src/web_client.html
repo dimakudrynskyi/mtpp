@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<title>Чат — Project 2</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f5f7fa; color: #1f2937; height: 100vh; overflow: hidden;
+}
+#login {
+  display: flex; align-items: center; justify-content: center;
+  height: 100vh; flex-direction: column; gap: 16px;
+}
+#login input {
+  font-size: 18px; padding: 10px 16px; border-radius: 8px;
+  border: 1px solid #ccc; width: 280px;
+}
+#login button {
+  font-size: 16px; padding: 10px 24px; border-radius: 8px;
+  border: none; background: #2563eb; color: white; cursor: pointer;
+}
+#app { display: none; height: 100vh; }
+#app.active { display: grid; grid-template-columns: 240px 1fr 240px; }
+.panel {
+  background: white; border-right: 1px solid #e5e7eb;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.panel:last-child { border-right: none; border-left: 1px solid #e5e7eb; }
+.panel-header {
+  padding: 12px 16px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;
+  font-weight: 600; font-size: 14px;
+}
+.panel-body { padding: 8px; overflow-y: auto; flex: 1; }
+.list-item {
+  padding: 8px 12px; border-radius: 6px; cursor: pointer; margin-bottom: 4px;
+  font-size: 14px; user-select: none;
+}
+.list-item:hover { background: #f3f4f6; }
+.list-item.active { background: #dbeafe; color: #1e40af; }
+.list-item .badge {
+  background: #ef4444; color: white; font-size: 10px;
+  border-radius: 10px; padding: 2px 6px; margin-left: 6px;
+}
+#chat {
+  display: flex; flex-direction: column; background: #fff;
+  border-right: 1px solid #e5e7eb; overflow: hidden;
+}
+#chat-header {
+  padding: 12px 20px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+}
+#messages {
+  flex: 1; overflow-y: auto; padding: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.message {
+  max-width: 70%; padding: 8px 12px; border-radius: 10px; word-wrap: break-word;
+}
+.message.from-me { align-self: flex-end; background: #2563eb; color: white; }
+.message.from-other { align-self: flex-start; background: #f3f4f6; }
+.message.broadcast { align-self: center; background: #fef3c7; font-style: italic; }
+.message.system { align-self: center; background: transparent; color: #6b7280; font-size: 12px; }
+.message.file { background: #ddd6fe; }
+.message-meta {
+  font-size: 10px; opacity: 0.7; margin-bottom: 2px;
+}
+#input-row {
+  padding: 12px; border-top: 1px solid #e5e7eb;
+  display: flex; gap: 8px;
+}
+#input-row input { flex: 1; font-size: 15px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+#input-row button { padding: 10px 20px; border-radius: 8px; border: none;
+                     background: #2563eb; color: white; cursor: pointer; font-weight: 600; }
+#file-input { display: none; }
+#typing-indicator { padding: 4px 16px; font-size: 12px; color: #6b7280; height: 20px; }
+.section-title { font-size: 11px; text-transform: uppercase; color: #6b7280;
+                  padding: 8px 12px; font-weight: 700; }
+.btn-secondary {
+  width: 100%; padding: 6px 10px; margin-top: 8px; border-radius: 6px;
+  border: 1px solid #d1d5db; background: white; cursor: pointer; font-size: 13px;
+}
+.btn-secondary:hover { background: #f3f4f6; }
+#status-bar {
+  padding: 6px 12px; background: #f3f4f6; font-size: 11px; color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+}
+.green { color: #059669; }
+.red { color: #dc2626; }
+.message.offline-marker { font-size: 10px; opacity: 0.7; }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h1>💬 Чат — Project 2</h1>
+  <input id="username-input" placeholder="ваше ім'я" autofocus />
+  <input id="server-input" placeholder="ws://localhost:9001" value="ws://localhost:9001" />
+  <button onclick="login()">Підключитися</button>
+</div>
+
+<div id="app">
+  <!-- LEFT PANEL: users list -->
+  <div class="panel">
+    <div class="panel-header">Учасники онлайн</div>
+    <div id="status-bar">Connected as <strong id="my-name"></strong></div>
+    <div class="panel-body">
+      <div class="list-item" data-target="*broadcast" onclick="selectChat('*broadcast', '🌍 Загальний чат')">
+        🌍 Загальний чат
+      </div>
+      <div class="section-title">Користувачі</div>
+      <div id="users-list"></div>
+      <div class="section-title">Групи</div>
+      <div id="groups-list"></div>
+      <button class="btn-secondary" onclick="createGroup()">+ Створити групу</button>
+      <button class="btn-secondary" onclick="joinGroup()">+ Приєднатись до групи</button>
+    </div>
+  </div>
+
+  <!-- CENTER: chat -->
+  <div id="chat">
+    <div id="chat-header">Виберіть співрозмовника</div>
+    <div id="messages"></div>
+    <div id="typing-indicator"></div>
+    <div id="input-row">
+      <input id="msg-input" placeholder="напишіть повідомлення..." />
+      <button onclick="document.getElementById('file-input').click()">📎</button>
+      <input id="file-input" type="file" />
+      <button onclick="sendMessage()">→</button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: stats / events -->
+  <div class="panel">
+    <div class="panel-header">📊 Статистика сервера</div>
+    <div class="panel-body">
+      <button class="btn-secondary" onclick="refreshStats()">Оновити</button>
+      <div id="stats" style="font-size: 13px; padding: 8px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let ws = null;
+let myUsername = null;
+let currentTarget = "*broadcast";  // куди надсилати: username | group:NAME | *broadcast
+let currentTargetLabel = "🌍 Загальний чат";
+let onlineUsers = [];
+let myGroups = new Set();
+let unreadCounts = {};
+let chatHistory = {};   // target → array of messages
+
+function login() {
+  const username = document.getElementById('username-input').value.trim();
+  const serverUrl = document.getElementById('server-input').value.trim();
+  if (!username) { alert("Введіть ім'я"); return; }
+
+  ws = new WebSocket(serverUrl);
+  ws.onopen = () => {
+    myUsername = username;
+    ws.send(JSON.stringify({ type: 'register', username: username }));
+  };
+  ws.onmessage = (evt) => {
+    const msg = JSON.parse(evt.data);
+    handleServerMessage(msg);
+  };
+  ws.onclose = () => addSystemMessage('🔴 Зʼєднання втрачено');
+  ws.onerror = (e) => alert('Помилка WS: ' + e);
+}
+
+function handleServerMessage(msg) {
+  switch (msg.type) {
+    case 'welcome':
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('app').classList.add('active');
+      document.getElementById('my-name').textContent = msg.username;
+      ws.send(JSON.stringify({ type: 'list_users' }));
+      ws.send(JSON.stringify({ type: 'list_groups' }));
+      setTimeout(refreshStats, 500);
+      break;
+    case 'users_list':
+      onlineUsers = msg.users;
+      renderUsers();
+      break;
+    case 'groups_list':
+      renderGroups(msg.groups);
+      break;
+    case 'user_joined':
+      addSystemMessage(`✅ ${msg.username} приєднався`);
+      ws.send(JSON.stringify({ type: 'list_users' }));
+      break;
+    case 'user_left':
+      addSystemMessage(`❌ ${msg.username} відключився`);
+      ws.send(JSON.stringify({ type: 'list_users' }));
+      break;
+    case 'user_msg':
+      addMessage(msg.from, msg.from, msg.text, msg.timestamp, msg.offline);
+      break;
+    case 'broadcast_msg':
+      addMessage('*broadcast', msg.from, msg.text, msg.timestamp, false, true);
+      break;
+    case 'group_msg':
+      addMessage('group:' + msg.group, msg.from, msg.text, msg.timestamp, msg.offline);
+      break;
+    case 'file_msg':
+      handleFile(msg);
+      break;
+    case 'history':
+      const target = msg.with_user;
+      chatHistory[target] = msg.messages.map(m => ({
+        from: m.from, text: m.text, ts: m.timestamp, isMe: m.from === myUsername,
+      }));
+      if (currentTarget === target) renderMessages();
+      break;
+    case 'stats':
+      const stats = msg.data;
+      document.getElementById('stats').innerHTML = Object.entries(stats)
+        .map(([k, v]) => `<div><strong>${k}:</strong> ${v}</div>`).join('');
+      break;
+    case 'group_created':
+    case 'group_joined':
+      myGroups.add(msg.group);
+      ws.send(JSON.stringify({ type: 'list_groups' }));
+      break;
+    case 'group_left':
+      myGroups.delete(msg.group);
+      ws.send(JSON.stringify({ type: 'list_groups' }));
+      break;
+    case 'delivered':
+      // Підтвердження доставки — можна логувати в console
+      break;
+    case 'error':
+      addSystemMessage(`⚠️ ${msg.code}: ${msg.message}`);
+      break;
+    case 'typing':
+      showTyping(msg.from);
+      break;
+  }
+}
+
+function addMessage(target, from, text, ts, offline, isBroadcast) {
+  if (!chatHistory[target]) chatHistory[target] = [];
+  chatHistory[target].push({
+    from: from, text: text, ts: ts, isMe: from === myUsername,
+    offline: offline, isBroadcast: isBroadcast,
+  });
+  if (currentTarget === target) {
+    renderMessages();
+  } else {
+    unreadCounts[target] = (unreadCounts[target] || 0) + 1;
+    renderUsers();
+    renderGroups();
+  }
+}
+
+function addSystemMessage(text) {
+  const target = currentTarget;
+  if (!chatHistory[target]) chatHistory[target] = [];
+  chatHistory[target].push({ from: 'system', text: text, isSystem: true });
+  renderMessages();
+}
+
+function renderMessages() {
+  const c = document.getElementById('messages');
+  c.innerHTML = '';
+  const messages = chatHistory[currentTarget] || [];
+  for (const m of messages) {
+    const div = document.createElement('div');
+    div.className = 'message';
+    if (m.isSystem) {
+      div.classList.add('system');
+      div.textContent = m.text;
+    } else if (m.isBroadcast) {
+      div.classList.add('broadcast');
+      div.innerHTML = `<div class="message-meta">📢 ${m.from}</div>${escapeHtml(m.text)}`;
+    } else if (m.isFile) {
+      div.classList.add('file');
+      div.innerHTML = `<div class="message-meta">${m.from}</div>📎 <a href="${m.url}" download="${m.filename}">${m.filename}</a>`;
+    } else {
+      div.classList.add(m.isMe ? 'from-me' : 'from-other');
+      const offlineMark = m.offline ? '<span class="offline-marker">[відкладено] </span>' : '';
+      div.innerHTML = `<div class="message-meta">${m.from}</div>${offlineMark}${escapeHtml(m.text)}`;
+    }
+    c.appendChild(div);
+  }
+  c.scrollTop = c.scrollHeight;
+  unreadCounts[currentTarget] = 0;
+}
+
+function escapeHtml(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function selectChat(target, label) {
+  currentTarget = target;
+  currentTargetLabel = label;
+  document.getElementById('chat-header').textContent = label;
+  unreadCounts[target] = 0;
+  renderMessages();
+  renderUsers();
+  renderGroups();
+
+  // якщо це приватний чат — запитати історію
+  if (target !== '*broadcast' && !target.startsWith('group:')) {
+    ws.send(JSON.stringify({ type: 'history', with_user: target }));
+  }
+}
+
+function renderUsers() {
+  const c = document.getElementById('users-list');
+  c.innerHTML = '';
+  for (const u of onlineUsers) {
+    if (u === myUsername) continue;
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    if (currentTarget === u) div.classList.add('active');
+    div.dataset.target = u;
+    div.innerHTML = `🟢 ${u}` +
+      (unreadCounts[u] ? `<span class="badge">${unreadCounts[u]}</span>` : '');
+    div.onclick = () => selectChat(u, `💬 ${u}`);
+    c.appendChild(div);
+  }
+}
+
+function renderGroups(groups) {
+  if (groups) window._groupsCache = groups;
+  const cached = window._groupsCache || [];
+  const c = document.getElementById('groups-list');
+  c.innerHTML = '';
+  for (const g of cached) {
+    if (!g.members.includes(myUsername)) continue;   // показуємо лише ті, де я є
+    const div = document.createElement('div');
+    div.className = 'list-item';
+    const target = 'group:' + g.name;
+    if (currentTarget === target) div.classList.add('active');
+    div.innerHTML = `👥 ${g.name} (${g.members.length})` +
+      (unreadCounts[target] ? `<span class="badge">${unreadCounts[target]}</span>` : '');
+    div.onclick = () => selectChat(target, `👥 ${g.name}`);
+    c.appendChild(div);
+  }
+}
+
+function sendMessage() {
+  const inp = document.getElementById('msg-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = '';
+  if (currentTarget === '*broadcast') {
+    ws.send(JSON.stringify({ type: 'broadcast', text: text }));
+    addMessage('*broadcast', myUsername, text, Date.now() / 1000, false, true);
+  } else if (currentTarget.startsWith('group:')) {
+    const group = currentTarget.slice(6);
+    ws.send(JSON.stringify({ type: 'group_msg', group_name: group, text: text }));
+    addMessage(currentTarget, myUsername, text, Date.now() / 1000, false, false);
+  } else {
+    ws.send(JSON.stringify({ type: 'private', to: currentTarget, text: text }));
+    addMessage(currentTarget, myUsername, text, Date.now() / 1000, false, false);
+  }
+}
+
+function createGroup() {
+  const name = prompt("Назва групи:");
+  if (!name) return;
+  ws.send(JSON.stringify({ type: 'group_create', group_name: name }));
+}
+
+function joinGroup() {
+  const name = prompt("Ім'я групи для приєднання:");
+  if (!name) return;
+  ws.send(JSON.stringify({ type: 'group_join', group_name: name }));
+}
+
+function refreshStats() {
+  ws.send(JSON.stringify({ type: 'stats' }));
+}
+
+function handleFile(msg) {
+  // створити blob URL з base64
+  const binary = atob(msg.data_b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  const blob = new Blob([bytes]);
+  const url = URL.createObjectURL(blob);
+  const target = msg.from;
+  if (!chatHistory[target]) chatHistory[target] = [];
+  chatHistory[target].push({
+    from: msg.from, isFile: true, filename: msg.filename, url: url,
+  });
+  if (currentTarget === target) renderMessages();
+  else { unreadCounts[target] = (unreadCounts[target] || 0) + 1; renderUsers(); }
+}
+
+// Send file
+document.getElementById('file-input').addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  if (currentTarget === '*broadcast' || currentTarget.startsWith('group:')) {
+    alert('Файли можна надсилати лише приватно');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const b64 = reader.result.split(',')[1];
+    ws.send(JSON.stringify({
+      type: 'file_send', to: currentTarget, filename: f.name, data_b64: b64,
+    }));
+    addMessage(currentTarget, myUsername, `📎 ${f.name} (надіслано)`,
+                Date.now() / 1000, false, false);
+  };
+  reader.readAsDataURL(f);
+});
+
+// Typing indicator (debounced)
+let typingTimer = null;
+document.getElementById('msg-input').addEventListener('input', () => {
+  if (currentTarget === '*broadcast' || currentTarget.startsWith('group:')) return;
+  if (typingTimer) clearTimeout(typingTimer);
+  ws.send(JSON.stringify({ type: 'typing', to: currentTarget }));
+  typingTimer = setTimeout(() => {}, 1500);
+});
+
+let typingTarget = null;
+let typingHideTimer = null;
+function showTyping(from) {
+  if (currentTarget !== from) return;
+  document.getElementById('typing-indicator').textContent = `${from} друкує...`;
+  if (typingHideTimer) clearTimeout(typingHideTimer);
+  typingHideTimer = setTimeout(() => {
+    document.getElementById('typing-indicator').textContent = '';
+  }, 2000);
+}
+
+// Enter to send
+document.getElementById('msg-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+document.getElementById('username-input').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') login();
+});
+
+// Periodic refresh of users/groups
+setInterval(() => {
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: 'list_users' }));
+    ws.send(JSON.stringify({ type: 'list_groups' }));
+  }
+}, 5000);
+</script>
+
+</body>
+</html>

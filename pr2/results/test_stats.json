@@ -1,0 +1,17 @@
+{
+  "stats": {
+    "messages_total": 160,
+    "broadcasts": 151,
+    "private_messages": 8,
+    "group_messages": 1,
+    "files_sent": 1,
+    "offline_stored": 1,
+    "offline_delivered": 1,
+    "users_registered": 48,
+    "disconnects": 48,
+    "users_online": 0,
+    "groups": 1,
+    "queued_offline": 0,
+    "history_pairs": 4
+  }
+}

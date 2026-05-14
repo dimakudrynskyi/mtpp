@@ -1,0 +1,82 @@
+{
+  "throughput": [
+    {
+      "n_clients": 10,
+      "messages_per_client": 10,
+      "send_time": 0.09544476199994278,
+      "total_time": 0.596084977999908,
+      "expected_deliveries": 900,
+      "actual_deliveries": 900,
+      "delivery_rate": 1.0,
+      "rate_msg_per_sec": 1509.8518386083854
+    },
+    {
+      "n_clients": 30,
+      "messages_per_client": 10,
+      "send_time": 1.274964467000018,
+      "total_time": 2.775966955000058,
+      "expected_deliveries": 8700,
+      "actual_deliveries": 8700,
+      "delivery_rate": 1.0,
+      "rate_msg_per_sec": 3134.0430707684045
+    },
+    {
+      "n_clients": 50,
+      "messages_per_client": 10,
+      "send_time": 4.038092371999937,
+      "total_time": 6.038511241999913,
+      "expected_deliveries": 24500,
+      "actual_deliveries": 24331,
+      "delivery_rate": 0.9931020408163266,
+      "rate_msg_per_sec": 4029.304413771654
+    },
+    {
+      "n_clients": 100,
+      "messages_per_client": 10,
+      "send_time": 17.298130246000028,
+      "total_time": 19.302023339000016,
+      "expected_deliveries": 99000,
+      "actual_deliveries": 75221,
+      "delivery_rate": 0.7598080808080808,
+      "rate_msg_per_sec": 3897.0525876432284
+    }
+  ],
+  "latency": [
+    {
+      "n_clients": 10,
+      "n_pings": 30,
+      "samples": 300,
+      "avg_ms": 2.1631433566680394,
+      "median_ms": 2.1421044999669903,
+      "min_ms": 1.0759269999880416,
+      "max_ms": 60.69155500006218,
+      "p99_ms": 4.741849999959413
+    }
+  ],
+  "burst": [
+    {
+      "n_clients": 30,
+      "n_bursts": 50,
+      "expected": 1450,
+      "actual": 1450,
+      "delivery_rate": 1.0,
+      "elapsed_s": 0.17973946300003263,
+      "rate_msg_per_sec": 8067.232291662832
+    }
+  ],
+  "final_stats": {
+    "messages_total": 1950,
+    "broadcasts": 1950,
+    "private_messages": 0,
+    "group_messages": 0,
+    "files_sent": 0,
+    "offline_stored": 0,
+    "offline_delivered": 0,
+    "users_registered": 230,
+    "disconnects": 230,
+    "users_online": 0,
+    "groups": 0,
+    "queued_offline": 0,
+    "history_pairs": 0
+  }
+}
